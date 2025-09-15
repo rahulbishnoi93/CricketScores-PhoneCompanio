@@ -85,6 +85,7 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+    implementation(libs.core.splashscreen)
 
     implementation("com.google.android.gms:play-services-wearable:18.1.0")
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
