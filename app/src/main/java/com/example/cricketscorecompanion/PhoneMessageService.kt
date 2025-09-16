@@ -23,19 +23,19 @@ class PhoneMessageService : WearableListenerService() {
             val api = RetrofitClient.apiService
             val response: String = try {
                 when {
-                    messageEvent.path == "/get_live" -> {
+                    messageEvent.path == "/cric_scores/get_live" -> {
                         val liveMatches = api.getLiveMatches()
                         json.encodeToString(liveMatches)
                     }
-                    messageEvent.path == "/get_recent" -> {
+                    messageEvent.path == "/cric_scores/get_recent" -> {
                         val recentMatches = api.getRecentMatches()
                         json.encodeToString(recentMatches)
                     }
-                    messageEvent.path == "/get_schedule" -> {
+                    messageEvent.path == "/cric_scores/get_schedule" -> {
                         val schedule = api.getSchedule()
                         json.encodeToString(schedule)
                     }
-                    messageEvent.path.startsWith("/get_match_details/") -> {
+                    messageEvent.path.startsWith("/cric_scores/get_match_details/") -> {
                         val id = messageEvent.path.substringAfterLast("/")
                         val details = api.getMatchDetails(id)
                         json.encodeToString(details)
@@ -56,7 +56,7 @@ class PhoneMessageService : WearableListenerService() {
                 val messageClient = Wearable.getMessageClient(this@PhoneMessageService)
 
                 nodes.forEach { node ->
-                    messageClient.sendMessage(node.id, "/response${messageEvent.path}", response.toByteArray()).await()
+                    messageClient.sendMessage(node.id, messageEvent.path, response.toByteArray()).await()
                     Log.d("PhoneMessageService - response",  response)
                 }
                 Log.d("PhoneMessageService", "Response sent to wear")
