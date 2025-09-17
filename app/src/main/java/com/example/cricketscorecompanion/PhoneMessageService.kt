@@ -35,6 +35,10 @@ class PhoneMessageService : WearableListenerService() {
                         val schedule = api.getSchedule()
                         json.encodeToString(schedule)
                     }
+                    messageEvent.path == "/cric_scores/get_all_matches" -> {
+                        val allMatches = api.getAllMatches()
+                        json.encodeToString(allMatches)
+                    }
                     messageEvent.path.startsWith("/cric_scores/get_match_details/") -> {
                         val id = messageEvent.path.substringAfterLast("/")
                         val details = api.getMatchDetails(id)

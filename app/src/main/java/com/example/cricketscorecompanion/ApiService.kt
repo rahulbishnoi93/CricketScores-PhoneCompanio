@@ -16,6 +16,9 @@ interface ApiService {
 
     @GET("match/{id}")
     suspend fun getMatchDetails(@Path("id") id: String): MatchDetails
+
+    @GET("allMatches")
+    suspend fun getAllMatches(): AllMatches
 }
 
 @Serializable
@@ -24,6 +27,12 @@ data class LiveMatch(
     val matchId: String,
     val team1: Team,
     val team2: Team
+)
+@Serializable
+data class AllMatches(
+    val live_matches: List<LiveMatch>,
+    val recent_matches: List<RecentMatch>,
+    val upcoming_matches: List<ScheduleMatch>
 )
 
 /**
